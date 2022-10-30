@@ -31,9 +31,9 @@ collecting Indonesia medical facility data from https://faskes.bpjs-kesehatan.go
 You can see result on `jumlah-faskes-per-provinsi.csv` and `data-faskes-indonesia.csv`file.
 
 
-# Generate data by yourself.
-## Requirement:
+## Requirement to run this script:
     Node js
+    
 ## Follow this step to generate your own data
 - run `npm install`
 - run `node script.js`
