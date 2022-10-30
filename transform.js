@@ -72,3 +72,4 @@ fs['writeFile']('data-faskes-indonesia.csv', firstData, undefined, (err) => {});
 //console.log(secondData);
 //console.log(secondDataHead);
 //console.log(provinsiData.length);
+// test
