@@ -28,10 +28,12 @@ collecting Indonesia medical facility data from https://faskes.bpjs-kesehatan.go
 | JAWA BARAT               | 748         | 1317      | 1164                      | 132         | 117         | 2091          | 852    |
 | JAWA TENGAH              | 541         | 1159      | 2053                      | 464         | 101         | 1145          | 834    |
 
+You can see result on `jumlah-faskes-per-provinsi.csv` and `data-faskes-indonesia.csv`file.
+
 #Requirement:
 Node js
 
-#How To use
+# Generate data by yourself.
 - run `npm install`
 - run `node script.js`
 - upload `collection.json` into postman and `run collection`
