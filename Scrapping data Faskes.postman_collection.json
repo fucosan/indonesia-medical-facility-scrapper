@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "cbcb3218-20fb-42c0-8716-288364161e3c",
+		"name": "Scrapping data Faskes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20900311"
+	},
+	"item": [
+		{
+			"name": "Get Provinsi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var dataProvinsi = pm.response.json()",
+							"let provinsiIds = dataProvinsi.map((data) => data.id)",
+							"",
+							"jenis_faskes = [",
+							"  {'code': 'R', 'jenis': 'Rumah sakit'},",
+							"  {'code': 'P', 'jenis' : 'Puskesmas'},",
+							"  {'code': 'U', 'jenis' : 'Dokter Praktik Perorangan'},",
+							"  {'code': 'G', 'jenis' : 'Dokter Gigi'},",
+							"  {'code': 'S', 'jenis' : 'Klink Utama'},",
+							"  {'code': 'B', 'jenis' : 'Klink Pratama'},",
+							"  {'code': 'A',  'jenis' : 'Apotek'}",
+							"];",
+							"",
+							"let paramData = []",
+							"let n = jenis_faskes.length;",
+							"let m = provinsiIds.length;",
+							"//let n = 1;",
+							"//let m = 1;",
+							"for (let i = 0; i < n; i++) {",
+							"    for (let j = 0; j < m; j++) {",
+							"        paramData.push({ ...jenis_faskes[i], provinsiId: dataProvinsi[j].id, provinsiName: dataProvinsi[j].name });",
+							"    }",
+							"}",
+							"paramData = paramData;",
+							"pm.variables.set(\"paramData\", paramData);",
+							"console.log(paramData, 'paramData');",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://faskes.bpjs-kesehatan.go.id/aplicares/Referensi/propinsi",
+					"protocol": "https",
+					"host": [
+						"faskes",
+						"bpjs-kesehatan",
+						"go",
+						"id"
+					],
+					"path": [
+						"aplicares",
+						"Referensi",
+						"propinsi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Faskes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let paramData = pm.variables.get(\"paramData\");",
+							"",
+							"if (paramData && paramData.length > 0) {",
+							"    let currentParamData = paramData.shift();",
+							"    pm.variables.set(\"jenisFaskes\", currentParamData.code);",
+							"    pm.variables.set(\"provinsiId\", currentParamData.provinsiId);",
+							"",
+							"    //setTimeout(() => postman.setNextRequest(\"Get Faskes\"), 1000);",
+							"   ",
+							"} else {",
+							"     //postman.setNextRequest(null);",
+							"}",
+							"",
+							"// pm.variables.set(\"faskesName\", currentParamData['jenis']);",
+							"// pm.variables.set(\"provinsiName\", currentParamData['provinsiName']);",
+							"//console.log(currentParamData);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const paramData = pm.variables.get(\"paramData\");",
+							"",
+							"if (paramData && paramData.length > 0) {",
+							"",
+							"// The opts for the server, also includes the data to be written to file",
+							"   ",
+							"const provinsiId = pm.variables.get(\"provinsiId\");",
+							"const faskesCode = pm.variables.get(\"jenisFaskes\");",
+							"console.log(provinsiId, faskesCode);",
+							"setTimeout(() => {",
+							"    pm.sendRequest({",
+							"        url: 'http://localhost:3000/write',",
+							"        method: 'POST',",
+							"        header: 'Content-Type:application/json',",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: { data: pm.response.json(), fileName: `${provinsiId}-${faskesCode}` }",
+							"        }",
+							"    }, function (err, res) {",
+							"        //console.log(res)",
+							"        postman.setNextRequest(\"Get Faskes\");",
+							"    });",
+							"}, 1000);",
+							"",
+							"} else {",
+							"    postman.setNextRequest(null);",
+							"}",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"jnsppk\": \"{{jenisFaskes}}\", \n    \"kdprop\": \"{{provinsiId}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://faskes.bpjs-kesehatan.go.id/aplicares/Peta/getData/",
+					"protocol": "https",
+					"host": [
+						"faskes",
+						"bpjs-kesehatan",
+						"go",
+						"id"
+					],
+					"path": [
+						"aplicares",
+						"Peta",
+						"getData",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "provinsiIds",
+			"value": ""
+		},
+		{
+			"key": "paramData",
+			"value": ""
+		},
+		{
+			"key": "jenisFaskes",
+			"value": ""
+		},
+		{
+			"key": "provinsiId",
+			"value": ""
+		}
+	]
+}
