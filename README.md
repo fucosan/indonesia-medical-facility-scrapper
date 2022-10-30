@@ -32,9 +32,9 @@ collecting Indonesia medical facility data from https://faskes.bpjs-kesehatan.go
 Node js
 
 #How To use
-- npm install
+- run `npm install`
 - run `node script.js`
 - upload `collection.json` into postman and `run collection`
-- lastlay, run `node transform.js` to generate data into csv
+- lastly, run `node transform.js` to generate data into csv
 
 Result Data will be save on root folder with name `jumlah-faskes-per-provinsi.csv` and `data-faskes-indonesia.csv`
