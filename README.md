@@ -32,7 +32,8 @@ You can see result on `jumlah-faskes-per-provinsi.csv` and `data-faskes-indonesi
 
 
 ## Requirement to run this script:
-    Node js
+- Node js
+- postman v2.1
     
 ## Follow this step to generate your own data
 - run `npm install`
