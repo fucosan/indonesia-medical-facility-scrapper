@@ -38,7 +38,7 @@ You can see result on `jumlah-faskes-per-provinsi.csv` and `data-faskes-indonesi
 ## Follow this step to generate your own data
 - run `npm install`
 - run `node script.js`
-- upload `collection.json` into postman and `run collection`
+- upload `Scrapping data Faskes.postman_collection.json` into postman and `run collection`
 - lastly, run `node transform.js` to generate data into csv
 
 Result Data will be save on root folder with name `jumlah-faskes-per-provinsi.csv` and `data-faskes-indonesia.csv`
